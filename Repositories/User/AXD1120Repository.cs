@@ -19,16 +19,35 @@ namespace GIT_KOREA_QA_API.Repositories.User
             return new OracleConnection(_connectionString);
         }
 
-        public async Task<AXD1120?> GetItemByUserId(AXD1120 userInfo)
+        /// <summary>
+        /// username(사용자 아이디)로 사용자 정보 조회하기
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public async Task<AXD1120?> GetItemByUsername(string username)
         {
             using (var connection = CreateConnection())
             {
                 var query = @"
-                  SELECT *
-                    FROM AXD1120
-                   WHERE USER_ID = :UserId";
-                
-                var parameters = new { userInfo.UserId };
+                    SELECT 
+                           UserId
+                         , UserPwd
+                         , UserName
+                         , LineCd
+                         , LineName
+                         , CorCd
+                         , CorName
+                         , BizCd
+                         , BizName
+                         , EmpNo
+                         , VendCd
+                         , UserDiv
+                         , PwdErrCount
+                         , PwdValidDate
+                      FROM AXD1120
+                     WHERE USER_ID = :username";
+
+                var parameters = new { username };
 
                 return await connection.QueryFirstOrDefaultAsync<AXD1120>(query, parameters);
             }

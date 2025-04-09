@@ -7,15 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+	<Folder Include="Controllers\" />
+    <Folder Include="Exceptions\" />
+	<Folder Include="Filters\" />
     <Folder Include="Middleware\" />
-    <Folder Include="Views\" />
+	<Folder Include="Models\" />
+	<Folder Include="Repositories\" />
+	<Folder Include="Services\" />
+	<Folder Include="Views\" />
     <Folder Include="Utils\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.15" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.8.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.8.0" />
