@@ -22,7 +22,7 @@ builder.Configuration
 builder.Services.AddControllers();
 
 // 리포지토리 등록
-builder.Services.AddScoped<IAXD1120Repository, AXD1120Repository>();
+builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 
 // 서비스 등록
 builder.Services.AddScoped<IAuthService, AuthService>();

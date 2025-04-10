@@ -39,7 +39,7 @@ namespace GIT_KOREA_QA_API.Controllers.User
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLogin request)
         {
-            var result = await _authService.LoginAsync(request.UserName, request.Password);
+            var result = await _authService.LoginAsync(request);
             return Ok(result);
         }
 
@@ -49,9 +49,9 @@ namespace GIT_KOREA_QA_API.Controllers.User
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("refresh")]
-        public async Task<IActionResult> Refresh([FromBody] UserRefreshToken request)
+        public IActionResult Refresh([FromBody] UserRefreshToken request)
         {
-            var result = await _authService.RefreshTokenAsync(request.RefreshToken);
+            var result = _authService.RefreshToken(request.RefreshToken);
 
             if (result == null)
                 return Unauthorized(new { message = "Invalid refresh token" });

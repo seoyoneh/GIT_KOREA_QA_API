@@ -10,14 +10,14 @@ namespace GIT_KOREA_QA_API.Services.User
         /// <param name="username">사용자 로그인 아이디</param>
         /// <param name="password">사용자 로그인 패스워드</param>
         /// <returns></returns>
-        Task<UserToken> LoginAsync(string username, string password);
+        Task<UserToken> LoginAsync(UserLogin param);
 
         /// <summary>
         /// 토큰 재발급
         /// </summary>
         /// <param name="refreshTken">로그인 때 발급했던 재발급 토큰</param>
         /// <returns></returns>
-        Task<UserToken> RefreshTokenAsync(string refreshTken);
+        UserToken RefreshToken(string refreshTken);
 
         /// <summary>
         /// 토큰 유효성 검사

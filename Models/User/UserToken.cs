@@ -1,4 +1,8 @@
-﻿namespace GIT_KOREA_QA_API.Models.User
+﻿using GIT_KOREA_QA_API.Helper.Database;
+using Oracle.ManagedDataAccess.Client;
+using System.Data;
+
+namespace GIT_KOREA_QA_API.Models.User
 {
     /// <summary>
     /// 사용자 토큰 객체
@@ -24,6 +28,11 @@
     public class UserLogin
     {
         /// <summary>
+        /// 법인코드
+        /// </summary>
+        public string? CorCd { get; set; }
+
+        /// <summary>
         /// 로그인 ID(UserID)
         /// </summary>
         public required string UserName { get; set; }
@@ -32,6 +41,16 @@
         /// 로그인 패스워드(UserPwd)
         /// </summary>
         public required string Password { get; set; }
+
+        /// <summary>
+        /// 사용자 IP
+        /// </summary>
+        public string? UserIP { get; set; }
+
+        /// <summary>
+        /// 협력업체 여부
+        /// </summary>
+        public required bool IsVendor { get; set; }
     }
 
     public class UserRefreshToken

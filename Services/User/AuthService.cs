@@ -4,7 +4,6 @@ using GIT_KOREA_QA_API.Repositories.User;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace GIT_KOREA_QA_API.Services.User
@@ -16,7 +15,7 @@ namespace GIT_KOREA_QA_API.Services.User
         //  CONSTANTS
         //
         //-----------------------------------------------------------------------------
-        private readonly IAXD1120Repository _userRepository;
+        private readonly ILoginRepository _userRepository;
         private readonly IConfiguration _configuration;
 
         //-----------------------------------------------------------------------------
@@ -24,7 +23,7 @@ namespace GIT_KOREA_QA_API.Services.User
         //  CONSTRUCTOR
         //
         //-----------------------------------------------------------------------------
-        public AuthService(IAXD1120Repository userRepository, IConfiguration configuration)
+        public AuthService(ILoginRepository userRepository, IConfiguration configuration)
         {
             _userRepository = userRepository;
             _configuration = configuration;
@@ -42,36 +41,33 @@ namespace GIT_KOREA_QA_API.Services.User
         /// <param name="password"></param>
         /// <returns>JWT객체</returns>
         /// <exception cref="ApiException"></exception>
-        public async Task<UserToken> LoginAsync(string username, string password)
+        public async Task<UserToken> LoginAsync(UserLogin param)
         {
-
-
-            AXD1120? item = await _userRepository.GetItemByUsername(username);
-
-            // ID가 틀려서 조회가 안되거나,
-            // Password 필드가 null이거나,
-            // Password 필드가 전달받은 password와 값이 다른경우
-            if (item == null || item.UserPwd == null || (
-                item.UserPwd != null &&
-                !item.UserPwd.Equals(password)
-              )
-            )
+            LoginResult? userInfo = new()
             {
-                if (item != null &&
-                   item.UserPwd != null &&
-                !item.UserPwd.Equals(password)) // 사용자 정보는 조회되었지만 패스워드가 서로 다를 경우
-                {
-                    /// TODO : 사용자 PwdErrCount 값을 하나 늘리는 작업을 수행해야함
-                }
+                UserId = string.Empty,
+                Name = string.Empty,
+                Role = string.Empty
+            };
 
+            if(!param.IsVendor) // 서연이화
+            {
+                userInfo = await _userRepository.GetItemBySeoyonLogin(param);
+            } else // 협력사
+            {
+                userInfo = await _userRepository.GetItemByVendorLogin(param);
+            }
+
+            if (userInfo == null)
+            {
                 throw new ApiException(StatusCodes.Status404NotFound, "사용자를 찾을 수 없습니다.");
             }
             else
             {
                 var result = new UserToken
                 {
-                    ActiveToken = GenerateAccessToken(item),
-                    RefreshToken = GenerateRefreshToken(item),
+                    ActiveToken = GenerateAccessToken(userInfo),
+                    RefreshToken = GenerateRefreshToken(userInfo),
                     ExpiresAt = DateTime.UtcNow.AddMinutes(double.Parse(_configuration["Jwt:DurationInMinutes"]!))
                 };
 
@@ -85,20 +81,20 @@ namespace GIT_KOREA_QA_API.Services.User
         /// <param name="refreshToken"></param>
         /// <returns></returns>
         /// <exception cref="ApiException"></exception>
-        public async Task<UserToken> RefreshTokenAsync(string refreshToken)
+        public UserToken RefreshToken(string refreshToken)
         {
             if(!ValidateToken(refreshToken))
             {
                 throw new ApiException(StatusCodes.Status401Unauthorized, "사용자 세션이 더 이상 유효하지 않습니다.");
             }
 
-            AXD1120? item = await _userRepository.GetItemByUsername(ReadToken(refreshToken, "userId")!);
-
-            if(item == null)
+            LoginResult item = new()
             {
-                throw new ApiException(StatusCodes.Status404NotFound, "사용자를 찾을 수 없습니다.");
-            }
-
+                UserId = ReadToken(refreshToken, "userId")!,
+                Name = ReadToken(refreshToken, "userName")!,
+                Role = ReadToken(refreshToken, "userRole")!
+            };
+            
             var result = new UserToken
             {
                 ActiveToken = GenerateAccessToken(item),
@@ -124,7 +120,7 @@ namespace GIT_KOREA_QA_API.Services.User
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        private string GenerateAccessToken(AXD1120 user)
+        private string GenerateAccessToken(LoginResult user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
@@ -133,7 +129,8 @@ namespace GIT_KOREA_QA_API.Services.User
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim("userId", user.UserId), // 사용자 ID
-                    new Claim("userRole", user.UserDiv), // 사용자 구분
+                    new Claim("userName", user.Name), // 사용자 이름
+                    new Claim("userRole", user.Role), // 사용자 구분
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(double.Parse(_configuration["Jwt:DurationInMinutes"]!)),
                 Issuer = _configuration["Jwt:Issuer"],
@@ -144,7 +141,7 @@ namespace GIT_KOREA_QA_API.Services.User
             return tokenHandler.WriteToken(token);
         }
 
-        private string GenerateRefreshToken(AXD1120 user)
+        private string GenerateRefreshToken(LoginResult user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
@@ -152,8 +149,9 @@ namespace GIT_KOREA_QA_API.Services.User
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim("userId", user.UserId),
-                    new Claim("userRole", user.UserDiv),
+                    new Claim("userId", user.UserId), // 사용자 ID
+                    new Claim("userName", user.Name), // 사용자 이름
+                    new Claim("userRole", user.Role), // 사용자 구분
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(double.Parse(_configuration["Jwt:RefreshDurationMinutes"]!)),
                 Issuer = _configuration["Jwt:Issuer"],
