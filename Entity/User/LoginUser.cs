@@ -2,7 +2,7 @@
 using Oracle.ManagedDataAccess.Client;
 using System.Data;
 
-namespace GIT_KOREA_QA_API.Models.User
+namespace GIT_KOREA_QA_API.Entity.User
 {
     public class LoginResult
     {

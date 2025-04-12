@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Transactions;
 using Dapper;
+using GIT_KOREA_QA_API.Entity.User;
 using GIT_KOREA_QA_API.Helper.Database;
 using GIT_KOREA_QA_API.Models.User;
 using Oracle.ManagedDataAccess.Client;
