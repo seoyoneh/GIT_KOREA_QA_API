@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace GIT_KOREA_QA_API.Controllers.Health
 {
@@ -7,6 +6,10 @@ namespace GIT_KOREA_QA_API.Controllers.Health
     [Route("api/[controller]")]
     public class HealthController : ControllerBase
     {
+        /// <summary>
+        /// API 서버가 살아있는지 확인하는 API
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("check")]
         public IActionResult HealthCheck()
         {

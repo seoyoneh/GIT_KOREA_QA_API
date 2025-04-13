@@ -6,6 +6,7 @@ using System.Text;
 using GIT_KOREA_QA_API.Services.User;
 using GIT_KOREA_QA_API.Repositories.User;
 using GIT_KOREA_QA_API.Middleware;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +60,11 @@ builder.Services.AddSwaggerGen(options =>
         Title = "서연이화 초중품 관리 APP API 서비스",
         Description = "서연이화 초중품 관리 APP에서 사용하는 API 서비스"
     });
+
+    // XML 주석 파일 경로 설정
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
 });
 
 var app = builder.Build();
@@ -75,10 +81,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c => {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API List V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
     });
 }
-
 
 app.MapControllers();
 
