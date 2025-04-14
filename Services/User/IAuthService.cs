@@ -7,8 +7,7 @@ namespace GIT_KOREA_QA_API.Services.User
         /// <summary>
         /// 로그인 - 토큰 발급
         /// </summary>
-        /// <param name="username">사용자 로그인 아이디</param>
-        /// <param name="password">사용자 로그인 패스워드</param>
+        /// <param name="param">사용자 로그인 아이디</param>
         /// <returns></returns>
         Task<UserToken> LoginAsync(UserLogin param);
 

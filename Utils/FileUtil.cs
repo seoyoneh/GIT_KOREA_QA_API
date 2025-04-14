@@ -39,7 +39,7 @@ namespace GIT_KOREA_QA_API.Utils
         /// <returns></returns>
         public static string GetRandomFileName(IFormFile file)
         {
-            var extenstion = Path.GetExtension(file.Name);
+            var extenstion = Path.GetExtension(file.FileName);
             
             return Guid.NewGuid().ToString() + extenstion;
         }

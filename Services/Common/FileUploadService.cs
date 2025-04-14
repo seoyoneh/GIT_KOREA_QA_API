@@ -60,7 +60,7 @@ namespace GIT_KOREA_QA_API.Services.Common
                         SavedFileName = fileName,
                         FileSize = file.Length,
                         FilePath = filePath,
-                        //bytes = FileUtil.ToByteArray(file),
+                        //bytes = FileUtil.ToByteArray(file), // 
                         md5 = FileUtil.GetChecksum(filePath),
                         ContentType = file.ContentType,
                         UploadedAt = DateTime.Now,
@@ -81,7 +81,24 @@ namespace GIT_KOREA_QA_API.Services.Common
 
             return result;
         }
+        public async Task<List<FileUploadResult>> UploadFiles(List<IFormFile> files, bool includeBytes)
+        {
+            List<FileUploadResult> list = await this.UploadFiles(files);
+
+            if(includeBytes)
+            {
+                return list;
+            }
+
+            foreach (var file in list)
+            {
+                file.bytes = null;
+            }
+
+            return list;
+        }
     }
+
 
     /// <summary>
     /// 파일 업로드 결과 모델

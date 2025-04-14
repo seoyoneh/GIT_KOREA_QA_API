@@ -2,6 +2,7 @@
 using GIT_KOREA_QA_API.Exceptions;
 using GIT_KOREA_QA_API.Models.User;
 using GIT_KOREA_QA_API.Repositories.User;
+using GIT_KOREA_QA_API.Utils;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -38,18 +39,12 @@ namespace GIT_KOREA_QA_API.Services.User
         /// <summary>
         /// 로그인 처리(JWT 토큰 발급)
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
+        /// <param name="param"></param>
         /// <returns>JWT객체</returns>
         /// <exception cref="ApiException"></exception>
         public async Task<UserToken> LoginAsync(UserLogin param)
         {
-            LoginResult? userInfo = new()
-            {
-                UserId = string.Empty,
-                Name = string.Empty,
-                Role = string.Empty
-            };
+            LoginResult? userInfo;
 
             if(!param.IsVendor) // 서연이화
             {

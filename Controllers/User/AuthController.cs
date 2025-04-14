@@ -1,5 +1,6 @@
 ﻿using GIT_KOREA_QA_API.Models.User;
 using GIT_KOREA_QA_API.Services.User;
+using GIT_KOREA_QA_API.Utils;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,9 +38,11 @@ namespace GIT_KOREA_QA_API.Controllers.User
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserLogin request)
+        public async Task<IActionResult> Login(UserLogin request)
         {
+            request.UserIP = IPExtractorUtil.GetClientIPv4(Request); // 사용자 IP 주소 추출
             var result = await _authService.LoginAsync(request);
+
             return Ok(result);
         }
 
@@ -49,7 +52,7 @@ namespace GIT_KOREA_QA_API.Controllers.User
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("refresh")]
-        public IActionResult Refresh([FromBody] UserRefreshToken request)
+        public IActionResult Refresh(UserRefreshToken request)
         {
             var result = _authService.RefreshToken(request.RefreshToken);
 
@@ -65,7 +68,7 @@ namespace GIT_KOREA_QA_API.Controllers.User
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("validate")]
-        public IActionResult Validate([FromBody] UserActiveToken request)
+        public IActionResult Validate(UserActiveToken request)
         {
             var result = new
             {

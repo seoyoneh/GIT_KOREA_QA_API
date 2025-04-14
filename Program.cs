@@ -8,6 +8,7 @@ using GIT_KOREA_QA_API.Repositories.User;
 using GIT_KOREA_QA_API.Middleware;
 using System.Reflection;
 using GIT_KOREA_QA_API.Services.Common;
+using GIT_KOREA_QA_API.Services.Inspection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,7 @@ builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 // 서비스 등록
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IFileUploadService, FileUploadService>();
+builder.Services.AddScoped<IInspectionService, InspectionService>();
 
 // JWT 인증 설정
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
