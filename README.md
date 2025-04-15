@@ -65,19 +65,19 @@ dotnet run
 http://<host>:<port>/api/Auth/login
 ```
 #### 요청(Request)
-|파라미터|데이터타입|Required|Example|
+| 파라미터 | 데이터타입 | Required | Example |
 |--------|----------|--------|-------|
-|username|string|Y|1001000|
-|password|string|Y|0000|
-|isVendor|boolean|Y|true|
-|langSet|string|N|KO|
+| username | string | Y | 1001000 |
+| password | string | Y | 0000 |
+| isVendor | boolean | Y | true |
+| langSet | string | N | KO |
 
 #### 응답(Response)
-|Key|데이터타입|Required|Example|
+| Key | 데이터타입 | Required | Example |
 |---|----------|-------|-------|
-|activeToken|string|Y|eyJhbGciO.....|
-|refreshToken|string|Y|eyJhbGciOi....|
-|expiresAt|DateTime|Y|2025-04-15T07:23:56.932502Z|
+| activeToken | string | Y | eyJhbGciO..... |
+| refreshToken | string | Y | eyJhbGciOi.... |
+| expiresAt | DateTime | Y | 2025-04-15T07:23:56.932502Z |
 
 ## 라이선스
 이 프로젝트는 서연이화의 독점 소프트웨어입니다.
