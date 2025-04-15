@@ -25,7 +25,7 @@ namespace GIT_KOREA_QA_API.Repositories.User
         //-----------------------------------------------------------------------------
         public LoginRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("ConnectionStrings:OracleConnection")!;
+            _connectionString = configuration.GetConnectionString("OracleConnection")!;
         }
 
         //-----------------------------------------------------------------------------
@@ -80,37 +80,40 @@ namespace GIT_KOREA_QA_API.Repositories.User
         /// <returns></returns>
         public async Task<LoginResult?> GetItemByVendorLogin(UserLogin param)
         {
-            using var connection = CreateConnection();
-            connection.Open();
-
-            VendorLogin model = new VendorLogin
+            using (var connection = CreateConnection())
             {
-                IN_USER_ID = param.UserName,
-                IN_PASSWORD = param.Password,
-                IN_USER_IP = param.UserIP!
-            };
 
-            // 모델을 OracleDynamicParameters로 변환
-            var parameters = model.ToOracleParameters();
+                connection.Open();
 
-            // 저장 프로시저 실행
-            await connection.ExecuteAsync(
-                "SYSHANIL.PKG_EPSERVICE.EXECUTE_LOGIN",
-                parameters,
-                commandType: CommandType.StoredProcedure
-            );
+                VendorLogin model = new VendorLogin
+                {
+                    IN_USER_ID = param.UserName,
+                    IN_PASSWORD = param.Password,
+                    IN_USER_IP = param.UserIP!
+                };
 
-            // 출력 파라미터 값을 모델에 매핑
-            parameters.MapOracleOutputs(model);
+                // 모델을 OracleDynamicParameters로 변환
+                var parameters = model.ToOracleParameters();
 
-            LoginResult result = new ()
-            {
-                UserId = parameters.Get<string>("USERID")!,
-                Name = parameters.Get<string>("USERNAME")!,
-                Role = parameters.Get<string>("USER_DIV")!,
-            };
+                // 저장 프로시저 실행
+                await connection.ExecuteAsync(
+                    "SYSHANIL.PKG_EPSERVICE.EXECUTE_LOGIN",
+                    parameters,
+                    commandType: CommandType.StoredProcedure
+                );
 
-            return result;
+                // 출력 파라미터 값을 모델에 매핑
+                parameters.MapOracleOutputs(model);
+
+                LoginResult result = new ()
+                {
+                    UserId = parameters.Get<string>("USERID")!,
+                    Name = parameters.Get<string>("USERNAME")!,
+                    Role = parameters.Get<string>("USER_DIV")!,
+                };
+
+                return result;
+            }
         }
 
         //-----------------------------------------------------------------------------

@@ -35,11 +35,13 @@ namespace GIT_KOREA_QA_API.Models.User
         /// <summary>
         /// 로그인 ID(UserID)
         /// </summary>
+        /// <example>1001000</example>
         public required string UserName { get; set; }
 
         /// <summary>
         /// 로그인 패스워드(UserPwd)
         /// </summary>
+        /// <example>0000</example>
         public required string Password { get; set; }
 
         /// <summary>
@@ -50,6 +52,7 @@ namespace GIT_KOREA_QA_API.Models.User
         /// <summary>
         /// 협력업체 여부
         /// </summary>
+        /// <example>true</example>
         public required bool IsVendor { get; set; }
     }
 
