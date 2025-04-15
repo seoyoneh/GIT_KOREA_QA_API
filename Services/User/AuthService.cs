@@ -64,7 +64,7 @@ namespace GIT_KOREA_QA_API.Services.User
                 {
                     ActiveToken = GenerateAccessToken(userInfo),
                     RefreshToken = GenerateRefreshToken(userInfo),
-                    ExpiresAt = DateTime.UtcNow.AddMinutes(double.Parse(_configuration["Jwt:DurationInMinutes"]!))
+                    ExpiresAt = DateTime.Now.AddMinutes(double.Parse(_configuration["Jwt:DurationInMinutes"]!))
                 };
 
                 return result;

@@ -9,8 +9,29 @@ using GIT_KOREA_QA_API.Middleware;
 using System.Reflection;
 using GIT_KOREA_QA_API.Services.Common;
 using GIT_KOREA_QA_API.Services.Inspection;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// appsettings에서 글로벌화 설정 가져오기
+var globalizationSection = builder.Configuration.GetSection("Globalization");
+var defaultCulture = globalizationSection["DefaultCulture"] ?? "ko-KR";
+var defaultTimeZone = globalizationSection["TimeZone"] ?? "Korea Standard Time";
+
+// 지원되는 문화권 설정
+var supportedCultures = new[] { new CultureInfo(defaultCulture) };
+
+// 로케일 설정
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture(defaultCulture);
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+
+// 서비스에 타임존 추가 (DI에서 사용할 수 있도록)
+builder.Services.AddSingleton(TimeZoneInfo.FindSystemTimeZoneById(defaultTimeZone));
 
 // 환경설정
 string environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")!;
