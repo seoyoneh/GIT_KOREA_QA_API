@@ -138,7 +138,7 @@ namespace GIT_KOREA_QA_API.Repositories.User
                 IN_CORCD = param.CorCd!,
                 IN_EMPNO = param.UserName,
                 IN_PASSWORD = param.Password,
-                LANG_SET = param.LangSet
+                IN_LANG_SET = param.LangSet
             };
 
             // 모델을 OracleDynamicParameters로 변환

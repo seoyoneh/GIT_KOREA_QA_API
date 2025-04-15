@@ -377,4 +377,49 @@ namespace GIT_KOREA_QA_API.Entity.User
             VENDNM = string.Empty;
         }
     }
+
+    public class LoginRequestIn
+    {
+        /// <summary>
+        /// 사용자 ID
+        /// </summary>
+        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Input)]
+        public string IN_USER_ID { get; set; }
+
+        /// <summary>
+        /// 사원번호(패스워드)
+        /// </summary>
+        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Input)]
+        public string IN_PASSWORD { get; set; }
+
+        /// <summary>
+        /// 사용자 IP
+        /// </summary>
+        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Input)]
+        public string IN_USER_IP { get; set; }
+
+        /// <summary>
+        /// 사용자 IP
+        /// </summary>
+        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Input)]
+        public string IN_LANG_SET { get; set; }
+
+        [OracleParameter(OracleDbType.RefCursor, ParameterDirection.Output)]
+        public OracleRefCursor? OUT_CURSOR { get; set; }
+
+        public VendorLoginIn()
+        {
+            // 기본값 초기화
+            IN_USER_ID = string.Empty;
+            IN_PASSWORD = string.Empty;
+            IN_USER_IP = string.Empty;
+            IN_LANG_SET = "KO";
+            OUT_CURSOR = null;
+        }
+    }
+
+    public class LoginRequestOut
+    {
+
+    }
 }
