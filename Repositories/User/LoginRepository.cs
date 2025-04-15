@@ -25,7 +25,7 @@ namespace GIT_KOREA_QA_API.Repositories.User
         //-----------------------------------------------------------------------------
         public LoginRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("OracleConnection")!;
+            _connectionString = configuration.GetConnectionString("ConnectionStrings:OracleConnection")!;
         }
 
         //-----------------------------------------------------------------------------
