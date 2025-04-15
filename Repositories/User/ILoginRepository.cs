@@ -5,21 +5,7 @@ namespace GIT_KOREA_QA_API.Repositories.User
 {
     public interface ILoginRepository
     {
-        /// <summary>
-        /// 서연이화 직원 정보 가져오기
-        /// </summary>
-        /// <param name="param"></param>
-        /// <returns></returns>
-        Task<LoginResult?> GetItemBySeoyonLogin(UserLogin param);
-
-        /// <summary>
-        /// 협력사 직원 정보 가져오기
-        /// </summary>
-        /// <param name="param"></param>
-        /// <returns></returns>
-        Task<LoginResult?> GetItemByVendorLogin(UserLogin param);
-
-        /// <summary>
+          /// <summary>
         /// 직원 정보 가져오기
         /// </summary>
         /// <param name="param"></param>

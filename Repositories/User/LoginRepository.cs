@@ -5,6 +5,7 @@ using Dapper;
 using GIT_KOREA_QA_API.Entity.User;
 using GIT_KOREA_QA_API.Helper.Database;
 using GIT_KOREA_QA_API.Models.User;
+using Microsoft.AspNetCore.Identity.Data;
 using Oracle.ManagedDataAccess.Client;
 
 namespace GIT_KOREA_QA_API.Repositories.User
@@ -33,60 +34,21 @@ namespace GIT_KOREA_QA_API.Repositories.User
         // IMPLEMENTATION
         //
         //-----------------------------------------------------------------------------
+
+
         /// <summary>
-        /// 서연이화 로그인
+        /// 통합 로그인
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<LoginResult?> GetItemBySeoyonLogin(UserLogin param)
-        {
-            using var connection = CreateConnection();
-            connection.Open();
-
-            EmployeeLogin model = new EmployeeLogin
-            {
-                IN_CORCD = param.CorCd!,
-                IN_EMPNO = param.Username,
-                IN_PASSWORD = param.Password,
-                LANG_SET = param.LangSet
-            };
-
-            // 모델을 OracleDynamicParameters로 변환
-            var parameters = model.ToOracleParameters();
-
-            // 저장 프로시저 실행
-            await connection.ExecuteAsync(
-                "SIS.APG_MOBILE_LOGIN.EXECUTE_LOGIN",
-                parameters,
-                commandType: CommandType.StoredProcedure
-            );
-
-            // 출력 파라미터 값을 모델에 매핑
-            parameters.MapOracleOutputs(model);
-
-            LoginResult result = new ()
-            {
-                UserId = parameters.Get<string>("EMPNO")!,
-                Name = parameters.Get<string>("EMPNAME")!,
-                Role = "T12"
-            };
-
-            return result;
-        }
-
-        /// <summary>
-        /// 협력사 로그인
-        /// </summary>
-        /// <param name="param"></param>
-        /// <returns></returns>
-        public async Task<LoginResult?> GetItemByVendorLogin(UserLogin param)
+        public async Task<LoginResult?> GetItemByLogin(UserLogin param)
         {
             using (var connection = CreateConnection())
             {
 
                 connection.Open();
 
-                VendorLoginIn model = new VendorLoginIn
+                LoginRequestIn model = new LoginRequestIn
                 {
                     IN_USER_ID = param.Username,
                     IN_PASSWORD = param.Password,
@@ -99,7 +61,7 @@ namespace GIT_KOREA_QA_API.Repositories.User
                 //parameters.Add("OUT_CURSOR", null, OracleDbType.RefCursor, ParameterDirection.Output);
 
                 // 저장 프로시저 실행
-                var userInfo = await connection.QueryFirstOrDefaultAsync<VendorLoginOut>(
+                var userInfo = await connection.QueryFirstOrDefaultAsync<LoginRequestOut>(
                     "SIS.APG_MOBILE_LOGIN.EXECUTE_LOGIN",
                     parameters,
                     commandType: CommandType.StoredProcedure
@@ -107,7 +69,7 @@ namespace GIT_KOREA_QA_API.Repositories.User
 
                 // 출력 파라미터 값을 모델에 매핑
 
-                if(null != userInfo)
+                if (null != userInfo)
                 {
                     LoginResult result = new()
                     {
@@ -121,47 +83,6 @@ namespace GIT_KOREA_QA_API.Repositories.User
 
                 return null;
             }
-        }
-
-        /// <summary>
-        /// 통합 로그인
-        /// </summary>
-        /// <param name="param"></param>
-        /// <returns></returns>
-        public async Task<LoginResult?> GetItemByLogin(UserLogin param)
-        {
-            using var connection = CreateConnection();
-            connection.Open();
-
-            EmployeeLogin model = new EmployeeLogin
-            {
-                IN_CORCD = param.CorCd!,
-                IN_EMPNO = param.Username,
-                IN_PASSWORD = param.Password,
-                IN_LANG_SET = param.LangSet
-            };
-
-            // 모델을 OracleDynamicParameters로 변환
-            var parameters = model.ToOracleParameters();
-
-            // 저장 프로시저 실행
-            await connection.ExecuteAsync(
-                "SIS.APG_MOBILE_LOGIN.EXECUTE_LOGIN",
-                parameters,
-                commandType: CommandType.StoredProcedure
-            );
-
-            // 출력 파라미터 값을 모델에 매핑
-            parameters.MapOracleOutputs(model);
-
-            LoginResult result = new()
-            {
-                UserId = parameters.Get<string>("EMPNO")!,
-                Name = parameters.Get<string>("EMPNAME")!,
-                Role = "T12"
-            };
-
-            return result;
         }
 
         //-----------------------------------------------------------------------------
