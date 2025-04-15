@@ -58,6 +58,7 @@ namespace GIT_KOREA_QA_API.Models.User
         /// <summary>
         /// 언어
         /// </summary>
+        /// <example>KO</example>
         public required string LangSet { get; set; }
     }
 

@@ -86,34 +86,40 @@ namespace GIT_KOREA_QA_API.Repositories.User
 
                 connection.Open();
 
-                VendorLogin model = new VendorLogin
+                VendorLoginIn model = new VendorLoginIn
                 {
                     IN_USER_ID = param.UserName,
                     IN_PASSWORD = param.Password,
-                    IN_USER_IP = param.UserIP!
+                    IN_USER_IP = param.UserIP!,
+                    IN_LANG_SET = param.LangSet
                 };
 
                 // 모델을 OracleDynamicParameters로 변환
                 var parameters = model.ToOracleParameters();
+                //parameters.Add("OUT_CURSOR", null, OracleDbType.RefCursor, ParameterDirection.Output);
 
                 // 저장 프로시저 실행
-                await connection.ExecuteAsync(
-                    "SYSHANIL.PKG_EPSERVICE.EXECUTE_LOGIN",
+                var userInfo = await connection.QueryFirstOrDefaultAsync<VendorLoginOut>(
+                    "SIS.APG_MOBILE_LOGIN.EXECUTE_LOGIN",
                     parameters,
                     commandType: CommandType.StoredProcedure
                 );
 
                 // 출력 파라미터 값을 모델에 매핑
-                parameters.MapOracleOutputs(model);
 
-                LoginResult result = new ()
+                if(null != userInfo)
                 {
-                    UserId = parameters.Get<string>("USERID")!,
-                    Name = parameters.Get<string>("USERNAME")!,
-                    Role = parameters.Get<string>("USER_DIV")!,
-                };
+                    LoginResult result = new()
+                    {
+                        UserId = userInfo.USERID,
+                        Name = userInfo.USERNAME,
+                        Role = userInfo.USER_DIV,
+                    };
 
-                return result;
+                    return result;
+                }
+
+                return null;
             }
         }
 

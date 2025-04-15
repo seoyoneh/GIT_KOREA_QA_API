@@ -321,7 +321,7 @@ namespace GIT_KOREA_QA_API.Models.Inspection
         /// <summary>
         /// 업로드 파일 목록
         /// </summary>
-        public List<IFormFile> Files { get; set; }
+        public List<IFormFile>? Files { get; set; }
     }
 
     /// <summary>

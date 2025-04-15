@@ -30,7 +30,7 @@ namespace GIT_KOREA_QA_API.Helper.Database
             foreach (var prop in typeof(T).GetProperties())
             {
                 // 프로퍼티 이름과 값 가져오기
-                string paramName = ToSnakeCase(prop.Name);
+                string paramName = prop.Name;
                 object value = prop.GetValue(model) == null ? "" : prop.GetValue(model)!;
 
                 // 애트리뷰트 확인
@@ -54,30 +54,7 @@ namespace GIT_KOREA_QA_API.Helper.Database
 
             return parameters;
         }
-
-        // 카멜케이스나 파스칼케이스를 스네이크 케이스로 변환 (예: EmployeeName -> employee_name)
-        private static string ToSnakeCase(string input)
-        {
-            if (string.IsNullOrEmpty(input)) return input;
-
-            var result = new System.Text.StringBuilder();
-            result.Append(char.ToLower(input[0]));
-
-            for (int i = 1; i < input.Length; i++)
-            {
-                if (char.IsUpper(input[i]))
-                {
-                    result.Append('_');
-                    result.Append(char.ToLower(input[i]));
-                }
-                else
-                {
-                    result.Append(input[i]);
-                }
-            }
-
-            return result.ToString();
-        }
+        
     }
 
     // 결과값 매핑을 위한 확장 메서드
@@ -92,7 +69,7 @@ namespace GIT_KOREA_QA_API.Helper.Database
                 var attr = prop.GetCustomAttribute<OracleParameterAttribute>();
                 if (attr != null && attr.Direction != ParameterDirection.Input)
                 {
-                    string paramName = ToSnakeCase(prop.Name);
+                    string paramName = prop.Name;
                     var value = parameters.Get<object>(paramName);
 
                     if (value != null && value != DBNull.Value)
@@ -110,29 +87,6 @@ namespace GIT_KOREA_QA_API.Helper.Database
                     }
                 }
             }
-        }
-
-        private static string ToSnakeCase(string input)
-        {
-            if (string.IsNullOrEmpty(input)) return input;
-
-            var result = new System.Text.StringBuilder();
-            result.Append(char.ToLower(input[0]));
-
-            for (int i = 1; i < input.Length; i++)
-            {
-                if (char.IsUpper(input[i]))
-                {
-                    result.Append('_');
-                    result.Append(char.ToLower(input[i]));
-                }
-                else
-                {
-                    result.Append(input[i]);
-                }
-            }
-
-            return result.ToString();
         }
     }
 }

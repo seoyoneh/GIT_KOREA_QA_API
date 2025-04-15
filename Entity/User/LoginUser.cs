@@ -1,5 +1,6 @@
 ﻿using GIT_KOREA_QA_API.Helper.Database;
 using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 using System.Data;
 
 namespace GIT_KOREA_QA_API.Entity.User
@@ -20,7 +21,8 @@ namespace GIT_KOREA_QA_API.Entity.User
         /// </summary>
         public required string Role { get; set; }
 
-        public LoginResult() {
+        public LoginResult()
+        {
             UserId = string.Empty;
             Name = string.Empty;
             Role = string.Empty;
@@ -216,7 +218,7 @@ namespace GIT_KOREA_QA_API.Entity.User
         }
     }
 
-    public class VendorLogin
+    public class VendorLoginIn
     {
         /// <summary>
         /// 사용자 ID
@@ -236,6 +238,28 @@ namespace GIT_KOREA_QA_API.Entity.User
         [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Input)]
         public string IN_USER_IP { get; set; }
 
+        /// <summary>
+        /// 사용자 IP
+        /// </summary>
+        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Input)]
+        public string IN_LANG_SET { get; set; }
+
+        [OracleParameter(OracleDbType.RefCursor, ParameterDirection.Output)]
+        public OracleRefCursor? OUT_CURSOR { get; set; }
+
+        public VendorLoginIn()
+        {
+            // 기본값 초기화
+            IN_USER_ID = string.Empty;
+            IN_PASSWORD = string.Empty;
+            IN_USER_IP = string.Empty;
+            IN_LANG_SET = "KO";
+            OUT_CURSOR = null;
+        }
+    }
+
+    public class VendorLoginOut
+    {
         /// <summary>
         /// 법인코드
         /// </summary>
@@ -332,12 +356,9 @@ namespace GIT_KOREA_QA_API.Entity.User
         [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 100)]
         public string VENDNM { get; set; }
 
-        public VendorLogin()
+        public VendorLoginOut()
         {
             // 기본값 초기화
-            IN_USER_ID = string.Empty;
-            IN_PASSWORD = string.Empty;
-            IN_USER_IP = string.Empty;
             CORCD = string.Empty;
             BIZCD = string.Empty;
             USERID = string.Empty;
