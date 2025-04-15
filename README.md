@@ -60,7 +60,7 @@ dotnet run
 ```
 
 ## API 명세서
-### 로그인(협력사)
+### 로그인
 ```
 http://<host>:<port>/api/Auth/login
 ```
