@@ -36,7 +36,7 @@ namespace GIT_KOREA_QA_API.Models.User
         /// 로그인 ID(UserID)
         /// </summary>
         /// <example>1001000</example>
-        public required string UserName { get; set; }
+        public required string Username { get; set; }
 
         /// <summary>
         /// 로그인 패스워드(UserPwd)
