@@ -18,5 +18,12 @@ namespace GIT_KOREA_QA_API.Repositories.User
         /// <param name="param"></param>
         /// <returns></returns>
         Task<LoginResult?> GetItemByVendorLogin(UserLogin param);
+
+        /// <summary>
+        /// 직원 정보 가져오기
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<LoginResult?> GetItemByLogin(UserLogin param);
     }
 }

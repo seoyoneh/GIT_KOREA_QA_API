@@ -42,10 +42,10 @@ namespace GIT_KOREA_QA_API.Entity.User
         public string IN_EMPNO { get; set; }
 
         /// <summary>
-        /// 로그인 사용자 사원번호
+        /// 로그인 사용자 비밀번호
         /// </summary>
         [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Input, 100)]
-        public string IN_REG_EMPNO { get; set; }
+        public string IN_PASSWORD { get; set; }
 
         /// <summary>
         /// 법인코드
@@ -88,6 +88,12 @@ namespace GIT_KOREA_QA_API.Entity.User
         /// </summary>
         [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 100)]
         public string PARTNM { get; set; }
+
+        /// <summary>
+        /// 언어
+        /// </summary>
+        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 10)]
+        public string LANG_SET { get; set; }
 
         /// <summary>
         /// 라인코드
@@ -183,7 +189,7 @@ namespace GIT_KOREA_QA_API.Entity.User
             // 기본값 초기화
             IN_CORCD = string.Empty;
             IN_EMPNO = string.Empty;
-            IN_REG_EMPNO = string.Empty;
+            IN_PASSWORD = string.Empty;
             CORCD = string.Empty;
             BIZCD = string.Empty;
             BIZNM = string.Empty;
@@ -191,6 +197,7 @@ namespace GIT_KOREA_QA_API.Entity.User
             TEAMNM = string.Empty;
             PARTCD = string.Empty;
             PARTNM = string.Empty;
+            LANG_SET = string.Empty;
             LINECD = string.Empty;
             LINENM = string.Empty;
             DEPTCD = string.Empty;

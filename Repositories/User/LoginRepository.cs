@@ -25,7 +25,7 @@ namespace GIT_KOREA_QA_API.Repositories.User
         //-----------------------------------------------------------------------------
         public LoginRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("ConnectionStrings:OracleConnection")!;
+            _connectionString = configuration.GetConnectionString("OracleConnection")!;
         }
 
         //-----------------------------------------------------------------------------
@@ -47,7 +47,8 @@ namespace GIT_KOREA_QA_API.Repositories.User
             {
                 IN_CORCD = param.CorCd!,
                 IN_EMPNO = param.UserName,
-                IN_REG_EMPNO = param.Password
+                IN_PASSWORD = param.Password,
+                LANG_SET = param.LangSet
             };
 
             // 모델을 OracleDynamicParameters로 변환
@@ -55,7 +56,7 @@ namespace GIT_KOREA_QA_API.Repositories.User
 
             // 저장 프로시저 실행
             await connection.ExecuteAsync(
-                "SYSADM.PKG_HR47042.HR47040P",
+                "SIS.APG_MOBILE_LOGIN.EXECUTE_LOGIN",
                 parameters,
                 commandType: CommandType.StoredProcedure
             );
@@ -108,6 +109,47 @@ namespace GIT_KOREA_QA_API.Repositories.User
                 UserId = parameters.Get<string>("USERID")!,
                 Name = parameters.Get<string>("USERNAME")!,
                 Role = parameters.Get<string>("USER_DIV")!,
+            };
+
+            return result;
+        }
+
+        /// <summary>
+        /// 통합 로그인
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<LoginResult?> GetItemByLogin(UserLogin param)
+        {
+            using var connection = CreateConnection();
+            connection.Open();
+
+            EmployeeLogin model = new EmployeeLogin
+            {
+                IN_CORCD = param.CorCd!,
+                IN_EMPNO = param.UserName,
+                IN_PASSWORD = param.Password,
+                LANG_SET = param.LangSet
+            };
+
+            // 모델을 OracleDynamicParameters로 변환
+            var parameters = model.ToOracleParameters();
+
+            // 저장 프로시저 실행
+            await connection.ExecuteAsync(
+                "SIS.APG_MOBILE_LOGIN.EXECUTE_LOGIN",
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
+
+            // 출력 파라미터 값을 모델에 매핑
+            parameters.MapOracleOutputs(model);
+
+            LoginResult result = new()
+            {
+                UserId = parameters.Get<string>("EMPNO")!,
+                Name = parameters.Get<string>("EMPNAME")!,
+                Role = "T12"
             };
 
             return result;

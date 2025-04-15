@@ -51,6 +51,11 @@ namespace GIT_KOREA_QA_API.Models.User
         /// 협력업체 여부
         /// </summary>
         public required bool IsVendor { get; set; }
+
+        /// <summary>
+        /// 언어
+        /// </summary>
+        public required string LangSet { get; set; }
     }
 
     public class UserRefreshToken
