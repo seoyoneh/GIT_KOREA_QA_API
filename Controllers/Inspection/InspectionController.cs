@@ -72,7 +72,7 @@ namespace GIT_KOREA_QA_API.Controllers.Inspection
             // InspectionModelRequest model = JsonSerializer.Deserialize<InspectionModelRequest>(metadata)!;
             // var uploadResults = await _fileUploadService.UploadFiles(files);
 
-            var uploadResults = await _fileUploadService.UploadFiles(request.Files, false);
+            var uploadResults = await _fileUploadService.UploadFiles(request.Files!, false);
 
             return Ok();
         }

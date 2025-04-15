@@ -46,7 +46,7 @@ namespace GIT_KOREA_QA_API.Repositories.User
             EmployeeLogin model = new EmployeeLogin
             {
                 IN_CORCD = param.CorCd!,
-                IN_EMPNO = param.UserName,
+                IN_EMPNO = param.Username,
                 IN_PASSWORD = param.Password,
                 LANG_SET = param.LangSet
             };
@@ -88,7 +88,7 @@ namespace GIT_KOREA_QA_API.Repositories.User
 
                 VendorLoginIn model = new VendorLoginIn
                 {
-                    IN_USER_ID = param.UserName,
+                    IN_USER_ID = param.Username,
                     IN_PASSWORD = param.Password,
                     IN_USER_IP = param.UserIP!,
                     IN_LANG_SET = param.LangSet
@@ -136,7 +136,7 @@ namespace GIT_KOREA_QA_API.Repositories.User
             EmployeeLogin model = new EmployeeLogin
             {
                 IN_CORCD = param.CorCd!,
-                IN_EMPNO = param.UserName,
+                IN_EMPNO = param.Username,
                 IN_PASSWORD = param.Password,
                 IN_LANG_SET = param.LangSet
             };
