@@ -50,12 +50,6 @@ namespace GIT_KOREA_QA_API.Models.User
         public string? UserIP { get; set; }
 
         /// <summary>
-        /// 협력업체 여부
-        /// </summary>
-        /// <example>true</example>
-        public required bool IsVendor { get; set; }
-
-        /// <summary>
         /// 언어
         /// </summary>
         /// <example>KO</example>

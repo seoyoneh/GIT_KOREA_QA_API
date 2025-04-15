@@ -29,196 +29,7 @@ namespace GIT_KOREA_QA_API.Entity.User
         }
     }
 
-    public class EmployeeLogin
-    {
-        /// <summary>
-        /// 법인코드
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Input, 100)]
-        public string IN_CORCD { get; set; }
-
-        /// <summary>
-        /// 사원번호
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Input, 6)]
-        public string IN_EMPNO { get; set; }
-
-        /// <summary>
-        /// 로그인 사용자 비밀번호
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Input, 100)]
-        public string IN_PASSWORD { get; set; }
-
-        /// <summary>
-        /// 법인코드
-        /// </summary>
-        [OracleParameter(OracleDbType.Char, ParameterDirection.Output, 4)]
-        public string CORCD { get; set; }
-
-        /// <summary>
-        /// 사업자코드
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 4)]
-        public string BIZCD { get; set; }
-
-        /// <summary>
-        /// 사업장명
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 50)]
-        public string BIZNM { get; set; }
-
-        /// <summary>
-        /// 실코드
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 8)]
-        public string TEAMCD { get; set; }
-
-        /// <summary>
-        /// 실명
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 100)]
-        public string TEAMNM { get; set; }
-
-        /// <summary>
-        /// 팀코드
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 8)]
-        public string PARTCD { get; set; }
-
-        /// <summary>
-        /// 팀명
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 100)]
-        public string PARTNM { get; set; }
-
-        /// <summary>
-        /// 언어
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 10)]
-        public string LANG_SET { get; set; }
-
-        /// <summary>
-        /// 라인코드
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 8)]
-        public string LINECD { get; set; }
-
-        /// <summary>
-        /// 라인명
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 100)]
-        public string LINENM { get; set; }
-
-        /// <summary>
-        /// 부서코드
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 8)]
-        public string DEPTCD { get; set; }
-
-        /// <summary>
-        /// 부서명
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 100)]
-        public string DEPTNM { get; set; }
-
-        /// <summary>
-        /// 사원번호
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 6)]
-        public string EMPNO { get; set; }
-
-        /// <summary>
-        /// 이름
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 20)]
-        public string EMPNM { get; set; }
-
-        /// <summary>
-        /// 직군코드
-        /// </summary>
-        [OracleParameter(OracleDbType.Int32, ParameterDirection.Output)]
-        public int? WAGES_TYPE { get; set; }
-
-        /// <summary>
-        /// 직군명
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 100)]
-        public string WAGES_TYPENM { get; set; }
-
-        /// <summary>
-        /// 직책코드
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 4)]
-        public string RESP_WORKCD { get; set; }
-
-        /// <summary>
-        /// 직책명
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 30)]
-        public string RESP_WORKNM { get; set; }
-
-        /// <summary>
-        /// 직위코드
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 4)]
-        public string TITLECD { get; set; }
-
-        /// <summary>
-        /// 직위명
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 40)]
-        public string TITLENM { get; set; }
-
-        /// <summary>
-        /// 핸드폰번호
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 100)]
-        public string MOB_PHONE_NO { get; set; }
-
-        /// <summary>
-        /// 생일
-        /// </summary>
-        [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 8)]
-        public string BIRTHDAY { get; set; }
-
-        /// <summary>
-        /// 그룹웨어 계정 사용여부
-        /// </summary>
-        [OracleParameter(OracleDbType.Char, ParameterDirection.Output, 1)]
-        public string GW_USE_YN { get; set; }
-        public EmployeeLogin()
-        {
-            // 기본값 초기화
-            IN_CORCD = string.Empty;
-            IN_EMPNO = string.Empty;
-            IN_PASSWORD = string.Empty;
-            CORCD = string.Empty;
-            BIZCD = string.Empty;
-            BIZNM = string.Empty;
-            TEAMCD = string.Empty;
-            TEAMNM = string.Empty;
-            PARTCD = string.Empty;
-            PARTNM = string.Empty;
-            LANG_SET = string.Empty;
-            LINECD = string.Empty;
-            LINENM = string.Empty;
-            DEPTCD = string.Empty;
-            DEPTNM = string.Empty;
-            EMPNO = string.Empty;
-            EMPNM = string.Empty;
-            WAGES_TYPE = 0;
-            WAGES_TYPENM = string.Empty;
-            RESP_WORKCD = string.Empty;
-            RESP_WORKNM = string.Empty;
-            TITLECD = string.Empty;
-            TITLENM = string.Empty;
-            MOB_PHONE_NO = string.Empty;
-            BIRTHDAY = string.Empty;
-            GW_USE_YN = string.Empty;
-        }
-    }
-
-    public class VendorLoginIn
+    public class LoginRequestIn
     {
         /// <summary>
         /// 사용자 ID
@@ -247,7 +58,7 @@ namespace GIT_KOREA_QA_API.Entity.User
         [OracleParameter(OracleDbType.RefCursor, ParameterDirection.Output)]
         public OracleRefCursor? OUT_CURSOR { get; set; }
 
-        public VendorLoginIn()
+        public LoginRequestIn()
         {
             // 기본값 초기화
             IN_USER_ID = string.Empty;
@@ -258,7 +69,7 @@ namespace GIT_KOREA_QA_API.Entity.User
         }
     }
 
-    public class VendorLoginOut
+    public class LoginRequestOut
     {
         /// <summary>
         /// 법인코드
@@ -356,7 +167,7 @@ namespace GIT_KOREA_QA_API.Entity.User
         [OracleParameter(OracleDbType.Varchar2, ParameterDirection.Output, 100)]
         public string VENDNM { get; set; }
 
-        public VendorLoginOut()
+        public LoginRequestOut()
         {
             // 기본값 초기화
             CORCD = string.Empty;
