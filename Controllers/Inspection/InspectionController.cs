@@ -51,7 +51,7 @@ namespace GIT_KOREA_QA_API.Controllers.Inspection
         /// </summary>
         /// <returns></returns>
         [HttpPost("seoyon/inquery_seoyoneh")]
-        public async Task<IActionResult> GetInspection(InspectionModelRequest request)
+        public async Task<IActionResult> GetInspection(InspectionSeoyoneh_ModelRequest request)
         {
             var result = await _InspectionService.GetInspection(request);
             //var uploadResults = await _fileUploadService.UploadFiles(files);
@@ -64,7 +64,7 @@ namespace GIT_KOREA_QA_API.Controllers.Inspection
         /// </summary>
         /// <returns></returns>
         [HttpPost("seoyon/save")]
-        public async Task<IActionResult> SaveInspection(InspectionModelRequest request)
+        public async Task<IActionResult> SaveInspection(InspectionSeoyoneh_ModelRequest request)
         {
             var result = await _InspectionService.SaveInspection(request);
             //var uploadResults = await _fileUploadService.UploadFiles(files);
@@ -79,13 +79,13 @@ namespace GIT_KOREA_QA_API.Controllers.Inspection
         /// <returns></returns>
         [HttpPost("vendor/save")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> SaveVendorInspection([FromForm] VendorInspectionModelRequest request)
+        public async Task<IActionResult> SaveVendorInspection([FromForm] InspectionVendor_ModelRequest request)
         {
             // var metadata = Request.Form["metadata"].FirstOrDefault()!; // 파일정보 외 데이터
             // InspectionModelRequest model = JsonSerializer.Deserialize<InspectionModelRequest>(metadata)!;
             // var uploadResults = await _fileUploadService.UploadFiles(files);
 
-            var uploadResults = await _fileUploadService.UploadFiles(request.Files!, false);
+            //var uploadResults = await _fileUploadService.UploadFiles(request.Files!, false);
 
             return Ok();
         }

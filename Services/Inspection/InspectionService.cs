@@ -29,11 +29,11 @@ namespace GIT_KOREA_QA_API.Services.Inspection
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<InspectionModelResponse> GetInspection(InspectionModelRequest request)
+        public async Task<InspectionSeoyoneh_ModelResponse> GetInspection(InspectionSeoyoneh_ModelRequest request)
         {
             Inquery_SeoyonehResult? inspectionInfo;
 
-            inspectionInfo = await _inspectionRepository.GetInspection(request);
+            inspectionInfo = await _inspectionRepository.GetInspection_Seoyoneh(request);
 
             if (inspectionInfo == null)
             {
@@ -41,7 +41,7 @@ namespace GIT_KOREA_QA_API.Services.Inspection
             }
             else
             {
-                var result = new InspectionModelResponse
+                var result = new InspectionSeoyoneh_ModelResponse
                 {
                     Serial = ""
                 };
@@ -58,7 +58,7 @@ namespace GIT_KOREA_QA_API.Services.Inspection
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<VendorInspectionModelResponse> GetVendorInspection(VendorInspectionModelRequest request)
+        public Task<InspectionVendor_ModelResponse> GetVendorInspection(InspectionVendor_ModelRequest request)
         {
             throw new NotImplementedException();
         }
@@ -69,7 +69,7 @@ namespace GIT_KOREA_QA_API.Services.Inspection
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<InspectionModelResponse> SaveInspection(InspectionModelRequest request)
+        public Task<InspectionSeoyoneh_ModelResponse> SaveInspection(InspectionSeoyoneh_ModelRequest request)
         {
             throw new NotImplementedException();
         }
@@ -81,7 +81,7 @@ namespace GIT_KOREA_QA_API.Services.Inspection
         /// <param name="files"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<VendorInspectionModelResponse> SaveVendorInspection(VendorInspectionModelResponse request, List<FileUploadResult> files)
+        public Task<InspectionVendor_ModelResponse> SaveVendorInspection(InspectionVendor_ModelResponse request, List<FileUploadResult> files)
         {
             throw new NotImplementedException();
         }

@@ -10,21 +10,21 @@ namespace GIT_KOREA_QA_API.Services.Inspection
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<InspectionModelResponse> GetInspection(InspectionModelRequest request);
+        Task<InspectionSeoyoneh_ModelResponse> GetInspection(InspectionSeoyoneh_ModelRequest request);
 
         /// <summary>
         /// 협력사 검사결과 조회하기
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<VendorInspectionModelResponse> GetVendorInspection(VendorInspectionModelRequest request);
+        Task<InspectionVendor_ModelResponse> GetVendorInspection(InspectionVendor_ModelRequest request);
 
         /// <summary>
         /// 서연이화 검사결과 저장
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<InspectionModelResponse> SaveInspection(InspectionModelRequest request);
+        Task<InspectionSeoyoneh_ModelResponse> SaveInspection(InspectionSeoyoneh_ModelRequest request);
 
         /// <summary>
         /// 협력사 검사결과 저장
@@ -32,6 +32,6 @@ namespace GIT_KOREA_QA_API.Services.Inspection
         /// <param name="request"></param>
         /// <param name="files"></param>
         /// <returns></returns>
-        Task<VendorInspectionModelResponse> SaveVendorInspection(VendorInspectionModelResponse request, List<FileUploadResult> files);
+        Task<InspectionVendor_ModelResponse> SaveVendorInspection(InspectionVendor_ModelResponse request, List<FileUploadResult> files);
     }
 }
