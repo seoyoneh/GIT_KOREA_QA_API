@@ -46,14 +46,6 @@ namespace GIT_KOREA_QA_API.Services.User
         {
             LoginResult? userInfo;
 
-            //if(!param.IsVendor) // 서연이화
-            //{
-            //    userInfo = await _userRepository.GetItemBySeoyonLogin(param);
-            //} else // 협력사
-            //{
-            //    userInfo = await _userRepository.GetItemByVendorLogin(param);
-            //}
-
             userInfo = await _userRepository.GetItemByLogin(param);
 
             if (userInfo == null)
