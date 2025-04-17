@@ -10,7 +10,7 @@ namespace GIT_KOREA_QA_API.Repositories.Inspection
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<InspectionResult> GetInspection(InspectionModelRequest request);
+        Task<Inquery_SeoyonehResult> GetInspection(InspectionModelRequest request);
 
         /// <summary>
         /// 협력사 등록된 검사결과 조회하기

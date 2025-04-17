@@ -14,6 +14,12 @@ using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Kestrel 서버 설정
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.Configure(builder.Configuration.GetSection("Kestrel"));
+});
+
 // appsettings에서 글로벌화 설정 가져오기
 var globalizationSection = builder.Configuration.GetSection("Globalization");
 var defaultCulture = globalizationSection["DefaultCulture"] ?? "ko-KR";

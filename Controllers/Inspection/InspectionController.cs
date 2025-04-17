@@ -47,6 +47,19 @@ namespace GIT_KOREA_QA_API.Controllers.Inspection
         //
         //-----------------------------------------------------------------------------
         /// <summary>
+        /// 초중품 검사결과 조회
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("seoyon/inquery_seoyoneh")]
+        public async Task<IActionResult> GetInspection(InspectionModelRequest request)
+        {
+            var result = await _InspectionService.GetInspection(request);
+            //var uploadResults = await _fileUploadService.UploadFiles(files);
+
+            return Ok();
+        }
+
+        /// <summary>
         /// 초중품 검사결과 저장
         /// </summary>
         /// <returns></returns>
