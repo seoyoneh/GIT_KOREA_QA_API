@@ -50,10 +50,49 @@ namespace GIT_KOREA_QA_API.Controllers.Inspection
         /// 초중품 검사결과 조회
         /// </summary>
         /// <returns></returns>
-        [HttpPost("seoyon/inquery_seoyoneh")]
+        [HttpPost("inquery/seoyoneh")]
         public async Task<IActionResult> GetInspection(InspectionSeoyoneh_ModelRequest request)
         {
-            var result = await _InspectionService.GetInspection(request);
+            var result = await _InspectionService.GetSeoyonehInspection(request);
+            //var uploadResults = await _fileUploadService.UploadFiles(files);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// 초중품 검사결과 조회
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("inquery/vendor")]
+        public async Task<IActionResult> GetInspection(InspectionVendor_ModelRequest request)
+        {
+            var result = await _InspectionService.GetVendorInspection(request);
+            //var uploadResults = await _fileUploadService.UploadFiles(files);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// 초중품 검사결과 조회
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("inquery/seoyoneh/detail")]
+        public async Task<IActionResult> GetInspection(InspectionSeoyonehDetail_ModelRequest request)
+        {
+            var result = await _InspectionService.GetSeoyonehDetailInspection(request);
+            //var uploadResults = await _fileUploadService.UploadFiles(files);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// 초중품 검사결과 조회
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("inquery/vendor/detail")]
+        public async Task<IActionResult> GetInspection(InspectionVendorDetail_ModelRequest request)
+        {
+            var result = await _InspectionService.GetVendorDetailInspection(request);
             //var uploadResults = await _fileUploadService.UploadFiles(files);
 
             return Ok();

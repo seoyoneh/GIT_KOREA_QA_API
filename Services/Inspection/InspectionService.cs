@@ -29,7 +29,7 @@ namespace GIT_KOREA_QA_API.Services.Inspection
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<InspectionSeoyoneh_ModelResponse> GetInspection(InspectionSeoyoneh_ModelRequest request)
+        public async Task<InspectionSeoyoneh_ModelResponse> GetSeoyonehInspection(InspectionSeoyoneh_ModelRequest request)
         {
             Inquery_SeoyonehResult? inspectionInfo;
 
@@ -58,9 +58,85 @@ namespace GIT_KOREA_QA_API.Services.Inspection
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<InspectionVendor_ModelResponse> GetVendorInspection(InspectionVendor_ModelRequest request)
+        public async Task<InspectionVendor_ModelResponse> GetVendorInspection(InspectionVendor_ModelRequest request)
         {
-            throw new NotImplementedException();
+            Inquery_VendorResult? inspectionInfo;
+
+            inspectionInfo = await _inspectionRepository.GetInspection_Vendor(request);
+
+            if (inspectionInfo == null)
+            {
+                throw new ApiException(StatusCodes.Status404NotFound, "사용자를 찾을 수 없습니다.");
+            }
+            else
+            {
+                var result = new InspectionVendor_ModelResponse
+                {
+                    Serial = ""
+                };
+
+                return result;
+            }
+
+            //throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 서연이화 검사결과 조회하기
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<InspectionSeoyonehDetail_ModelResponse> GetSeoyonehDetailInspection(InspectionSeoyonehDetail_ModelRequest request)
+        {
+            Inquery_Seoyoneh_DetailResult? inspectionInfo;
+
+            inspectionInfo = await _inspectionRepository.GetInspection_Seoyoneh_Detail(request);
+
+            if (inspectionInfo == null)
+            {
+                throw new ApiException(StatusCodes.Status404NotFound, "사용자를 찾을 수 없습니다.");
+            }
+            else
+            {
+                var result = new InspectionSeoyonehDetail_ModelResponse
+                {
+                    Serial = ""
+                };
+
+                return result;
+            }
+
+            //throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 협력사 검사결과 조회하기
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<InspectionVendorDetail_ModelResponse> GetVendorDetailInspection(InspectionVendorDetail_ModelRequest request)
+        {
+            Inquery_Vendor_DetailResult? inspectionInfo;
+
+            inspectionInfo = await _inspectionRepository.GetInspection_Vendor_Detail(request);
+
+            if (inspectionInfo == null)
+            {
+                throw new ApiException(StatusCodes.Status404NotFound, "사용자를 찾을 수 없습니다.");
+            }
+            else
+            {
+                var result = new InspectionVendorDetail_ModelResponse
+                {
+                    Serial = ""
+                };
+
+                return result;
+            }
+
+            //throw new NotImplementedException();
         }
 
         /// <summary>

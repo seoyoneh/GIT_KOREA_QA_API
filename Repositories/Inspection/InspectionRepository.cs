@@ -280,12 +280,12 @@ namespace GIT_KOREA_QA_API.Repositories.Inspection
 
         public Task<InspectionResult> SaveInspection(InspectionSeoyoneh_ModelRequest request)
         {
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task<VendorInspectionResult> SaveInspection(InspectionVendor_ModelRequest request)
         {
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace GIT_KOREA_QA_API.Services.Inspection
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<InspectionSeoyoneh_ModelResponse> GetInspection(InspectionSeoyoneh_ModelRequest request);
+        Task<InspectionSeoyoneh_ModelResponse> GetSeoyonehInspection(InspectionSeoyoneh_ModelRequest request);
 
         /// <summary>
         /// 협력사 검사결과 조회하기
@@ -18,6 +18,20 @@ namespace GIT_KOREA_QA_API.Services.Inspection
         /// <param name="request"></param>
         /// <returns></returns>
         Task<InspectionVendor_ModelResponse> GetVendorInspection(InspectionVendor_ModelRequest request);
+
+        /// <summary>
+        /// 협력사 검사결과 조회하기
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<InspectionSeoyonehDetail_ModelResponse> GetSeoyonehDetailInspection(InspectionSeoyonehDetail_ModelRequest request);
+
+        /// <summary>
+        /// 협력사 검사결과 조회하기
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<InspectionVendorDetail_ModelResponse> GetVendorDetailInspection(InspectionVendorDetail_ModelRequest request);
 
         /// <summary>
         /// 서연이화 검사결과 저장
