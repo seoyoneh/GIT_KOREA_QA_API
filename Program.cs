@@ -11,6 +11,7 @@ using GIT_KOREA_QA_API.Services.Common;
 using GIT_KOREA_QA_API.Services.Inspection;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using GIT_KOREA_QA_API.Repositories.Inspection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +54,7 @@ builder.Services.AddControllers();
 
 // 리포지토리 등록
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+builder.Services.AddScoped<IInspectionRepository, InspectionRepository>();
 
 // 서비스 등록
 builder.Services.AddScoped<IAuthService, AuthService>();

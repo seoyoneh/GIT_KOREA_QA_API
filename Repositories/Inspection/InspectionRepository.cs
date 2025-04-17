@@ -47,7 +47,7 @@ namespace GIT_KOREA_QA_API.Repositories.Inspection
 
                     // 저장 프로시저 실행
                     var InspectionInfo = await connection.QueryFirstOrDefaultAsync<Inquery_SeoyonehOut>(
-                        "SIS.APG_QA_MOBLIE.INQUERY_SEOYONEH",
+                        "SIS.APG_QA_MOBILE.INQUERY_SEOYONEH",
                         parameters,
                         commandType: CommandType.StoredProcedure
                     );
